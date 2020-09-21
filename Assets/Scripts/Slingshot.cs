@@ -7,11 +7,15 @@ public class Slingshot : MonoBehaviour
     [Header("Set in Inspector")]
 
     public GameObject prefabProjectile;
+    public float velocityMult = 8f;
+
     [Header("Set Dynamically")]
     public GameObject launchPoint;
+
     public Vector3 launchPos;
     public GameObject projectile;
     public bool aimingMode;
+    private Rigidbody projectileRigidbody;
 
     //turns halo on and off to indicate mouse is over slingshot
     void Awake()
@@ -48,5 +52,14 @@ public class Slingshot : MonoBehaviour
         projectile.transform.position = launchPos;
         //sets Kinematic as true
         projectile.GetComponent<Rigidbody>().isKinematic = true;
+
+        projectileRigidbody = projectile.GetComponent<Rigidbody>();
+        projectileRigidbody.isKinematic = true;
+    }
+
+    void Update()
+    {
+        if (!aimingMode) return;
+
     }
 }
