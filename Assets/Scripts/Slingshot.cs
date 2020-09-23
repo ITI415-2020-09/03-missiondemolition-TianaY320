@@ -59,7 +59,36 @@ public class Slingshot : MonoBehaviour
 
     void Update()
     {
+        //if it's not in aming mode don't run this code
         if (!aimingMode) return;
+
+        Vector3 mousePos2D = Input.mousePosition;
+        mousePos2D.z = -Camera.main.transform.position.z;
+        Vector3 mousePos3D = Camera.main.ScreenToWorldPoint(mousePos2D);
+
+        //find the delta from LaunchPos to mousePos
+        Vector3 mouseDelta = mousePos3D - launchPos;
+        //limit mouse to radius of spherecollider
+        float maxMagnitude = this.GetComponent<SphereCollider>().radius;
+
+        if (mouseDelta.magnitude > maxMagnitude)
+        {
+            mouseDelta.Normalize();
+            mouseDelta *= maxMagnitude;
+        }
+
+        //moves the projectile to the new position
+        Vector3 projPos = launchPos + mouseDelta;
+        projectile.transform.position = projPos;
+
+        if (Input.GetMouseButtonUp(0))
+        {
+            //mouse has been release
+            aimingMode = false;
+            projectileRigidbody.isKinematic = false;
+            projectileRigidbody.velocity = -mouseDelta * velocityMult;
+            projectile = null;
+        }
 
     }
 }
