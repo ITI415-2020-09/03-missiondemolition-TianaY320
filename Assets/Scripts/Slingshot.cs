@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Slingshot : MonoBehaviour
 {
+
     [Header("Set in Inspector")]
 
     public GameObject prefabProjectile;
