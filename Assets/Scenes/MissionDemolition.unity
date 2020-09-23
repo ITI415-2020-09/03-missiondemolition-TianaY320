@@ -361,7 +361,7 @@ MonoBehaviour:
   velocityMult: 8
   launchPoint: {fileID: 0}
   launchPos: {x: 0, y: 0, z: 0}
-  projectile: {fileID: 3516008641953131372, guid: b66688ca20a20b944a49f0e39986bd1a, type: 3}
+  projectile: {fileID: 0}
   aimingMode: 0
 --- !u!1 &1589394745
 GameObject:
