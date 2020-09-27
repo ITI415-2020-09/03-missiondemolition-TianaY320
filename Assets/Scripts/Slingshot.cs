@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Slingshot : MonoBehaviour
 {
+    static private Slingshot S;
 
     [Header("Set in Inspector")]
 
@@ -18,9 +19,20 @@ public class Slingshot : MonoBehaviour
     public bool aimingMode;
     private Rigidbody projectileRigidbody;
 
+    static public Vector3 LAUNCH_POS
+    {
+        get
+        {
+            if (S == null) return Vector3.zero;
+            return S.launchPos;
+        }
+    }
+
     //turns halo on and off to indicate mouse is over slingshot
     void Awake()
     {
+        S = this;
+
         //finds gameObject launch point and gets transform
         Transform launchPointTrans = transform.Find("LaunchPoint");
         launchPoint = launchPointTrans.gameObject;
@@ -90,6 +102,9 @@ public class Slingshot : MonoBehaviour
             projectileRigidbody.velocity = -mouseDelta * velocityMult;
             FollowCam.POI = projectile;
             projectile = null;
+
+            MissionDemolition.ShotFired();
+            ProjectileLine.S.poi = projectile;
         }
 
     }
